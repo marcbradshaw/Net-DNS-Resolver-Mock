@@ -1,0 +1,31 @@
+language: perl
+perl:
+  - "5.24"
+  - "5.22"
+  - "5.20"
+  - "5.18"
+  - "5.16"
+  - "5.14"
+#  - "5.12"
+#  - "5.10"
+
+before_install:
+   - git config --global user.name "TravisCI"
+   - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+   - source ~/travis-perl-helpers/init
+   - build-perl
+   - perl -V
+
+install:
+   - cpanm -n Devel::Cover::Report::Coveralls Dist::Zilla::Plugin::OSPrereqs Dist::Zilla::Plugin::AutoPrereqs Dist::Zilla::Plugin::AutoVersion
+   - cpanm -n Dist::Zilla::Plugin::ConfirmRelease Dist::Zilla::Plugin::Git::Contributors Dist::Zilla::Plugin::OurPkgVersion
+   - cpanm -n Dist::Zilla::Plugin::PodSyntaxTests Dist::Zilla::Plugin::ReadmeAnyFromPod Dist::Zilla::Plugin::Test::Perl::Critic
+   - cpanm -n Dist::Zilla::Plugin::TestRelease Dist::Zilla::Plugin::UploadToCPAN Dist::Zilla::PluginBundle::Basic Test::More
+   - cpanm -n List::Util Capture::Tiny Test::Pod Test::Pod::Coverage Devel::Cover::Report::Coveralls Carp IO::Handle IO::Select
+   - cpanm -n Net::DNS::Resolver Net::DNS::ZoneFile Net::DNS::Packet Net::DNS::Question
+
+script: HARNESS_IS_VERBOSE=1 dzil test
+
+after_script:
+  - cover -test -make 'prove -Ilib t' -report coveralls
+
