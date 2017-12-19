@@ -36,10 +36,6 @@ sub send {
             $name = join( '.', reverse( split( /\./, $name ) ) );
             $name .= '.in-addr.arpa';
         }
-        else {
-            $origname =~ s/\.in-addr.arpa//;
-            $origname = join( '.', reverse( split( /\./, $origname ) ) );
-        }
     }
 
     my $Packet = Net::DNS::Packet->new();
