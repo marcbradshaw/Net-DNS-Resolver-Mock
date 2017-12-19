@@ -33,18 +33,19 @@ sub send {
     my $origname = $name;
     if ( lc $type eq 'ptr' ) {
         if ( index( lc $name, '.in-addr.arpa' )  == -1 ) {
-            $name = join( '.', reverse( split( /\./, $name ) ) );
-            $name .= '.in-addr.arpa';
+            if ( $name =~ /^\d+\.\d+\.\d+\.\d+$/ ) {
+                $name = join( '.', reverse( split( /\./, $name ) ) );
+                $name .= '.in-addr.arpa';
+            }
         }
     }
-
     my $Packet = Net::DNS::Packet->new();
     $Packet->push( 'question' => Net::DNS::Question->new( $origname, $type, 'IN' ) );
     foreach my $Item ( @$FakeZone ) {
         my $itemname = $Item->name();
         my $itemtype = $Item->type();
         if ( ( lc $itemname eq lc $name ) && ( lc $itemtype eq lc $type ) ) {
-            $Packet->push( 'answer' => $Item );
+        $Packet->push( 'answer' => $Item );
         }
         elsif ( ( lc $itemname eq lc $name ) && ( lc $itemtype eq lc 'cname' ) ) {
             $Packet->push( 'answer' => $Item );
