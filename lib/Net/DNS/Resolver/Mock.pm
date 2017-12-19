@@ -32,9 +32,13 @@ sub send {
 
     my $origname = $name;
     if ( lc $type eq 'ptr' ) {
-        if ( index( $name,' .in-addr.arpa' )  == -1 ) {
+        if ( index( lc $name, '.in-addr.arpa' )  == -1 ) {
             $name = join( '.', reverse( split( /\./, $name ) ) );
             $name .= '.in-addr.arpa';
+        }
+        else {
+            $origname =~ s/\.in-addr.arpa//;
+            $origname = join( '.', reverse( split( /\./, $origname ) ) );
         }
     }
 
@@ -44,6 +48,9 @@ sub send {
         my $itemname = $Item->name();
         my $itemtype = $Item->type();
         if ( ( lc $itemname eq lc $name ) && ( lc $itemtype eq lc $type ) ) {
+            $Packet->push( 'answer' => $Item );
+        }
+        elsif ( ( lc $itemname eq lc $name ) && ( lc $itemtype eq lc 'cname' ) ) {
             $Packet->push( 'answer' => $Item );
         }
     }
