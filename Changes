@@ -2,6 +2,7 @@ Revision history for Net::DNS::Resolver::Mock
 
 {{$NEXT}}
   - Add missing Changelog
+  - Debugging mode with output via STDERR and method
 
 1.20200214
   - Add Mocking of Exceptions
