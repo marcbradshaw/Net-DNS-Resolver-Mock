@@ -1,0 +1,18 @@
+Revision history for Net::DNS::Resolver::Mock
+
+{{$NEXT}}
+  - Add missing Changelog
+
+1.20200214
+  - Add Mocking of Exceptions
+
+1.20171219
+  - Add CNAME lookups
+  - Bugfix PTR lookups
+
+1.20171031
+  - Improve tests
+
+1.20170814
+  - First release
+

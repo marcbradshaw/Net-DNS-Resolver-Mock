@@ -36,9 +36,13 @@ A subclass of Net::DNS::Resolver which parses a zonefile for it's data source. P
 
     Reads the zone data from the supplied string
 
-- die\_on( $Name, $Type, $Error )
+- die\_on ( $Name, $Type, $Error )
 
     Die with $Error for a query of $Name and $Type
+
+- set\_debug ()
+
+    Once set, the resolver will write any lookups received to STDERR
 
 # DEPENDENCIES
 

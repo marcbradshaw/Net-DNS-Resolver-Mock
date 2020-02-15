@@ -19,6 +19,13 @@ sub die_on {
     return;
 }
 
+sub set_debug {
+    my ( $self ) = @_;
+    warn "Net::DNS::Resolver::Mock Debugging enabled";
+    $self->{_mock_debug} = 1;
+    return;
+}
+
 sub zonefile_read {
     my ( $self, $zonefile ) = @_;
     $self->{ 'zonefile' } = Net::DNS::ZoneFile->read( $zonefile );
@@ -33,6 +40,8 @@ sub zonefile_parse {
 
 sub send {
     my ( $self, $name, $type ) = @_;
+
+    warn "DNS Lookup '$name' '$type'" if $self->{_mock_debug};
 
     if ( exists ( $die_on->{ "$name $type" } ) ) {
         die $die_on->{ "$name $type" };
@@ -116,6 +125,10 @@ Reads the zone data from the supplied string
 =item die_on ( $Name, $Type, $Error )
 
 Die with $Error for a query of $Name and $Type
+
+=item set_debug ()
+
+Once set, the resolver will write any lookups received to STDERR
 
 =back
 
