@@ -1,6 +1,8 @@
 Revision history for Net::DNS::Resolver::Mock
 
 {{$NEXT}}
+
+1.20200215 2020-02-15 15:07:49+00:00 UTC
   - Add missing Changelog
   - Debugging mode with output via STDERR and method
 
