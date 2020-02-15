@@ -40,9 +40,22 @@ A subclass of Net::DNS::Resolver which parses a zonefile for it's data source. P
 
     Die with $Error for a query of $Name and $Type
 
-- set\_debug ()
+- enable\_debug ()
 
     Once set, the resolver will write any lookups received to STDERR
+    and will be available via the following methods
+
+- disble\_debug ()
+
+    Disable debugging
+
+- clear\_debug ()
+
+    Clear the debugging list
+
+- get\_debug ()
+
+    Returns a list of debugging entries
 
 # DEPENDENCIES
 
