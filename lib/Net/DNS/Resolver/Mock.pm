@@ -70,7 +70,7 @@ sub send {
         die $die_on->{ "$name $type" };
     }
 
-    $name =~ s/\.$//;
+    $name =~ s/\.$// unless $name eq '.';
 
     my $FakeZone = $self->{ 'zonefile' };
 
