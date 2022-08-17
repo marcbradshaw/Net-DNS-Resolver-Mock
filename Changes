@@ -1,6 +1,8 @@
 Revision history for Net::DNS::Resolver::Mock
 
 {{$NEXT}}
+
+1.20220817
   - Fix issue when looking up record at the root
 
 1.20200215 2020-02-15 15:07:49+00:00 UTC
